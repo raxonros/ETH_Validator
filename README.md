@@ -212,14 +212,14 @@ make test
 
 - Expand tests coverage (>90%).
 - Persistent Redis cache.
-- Revisit WebSocket proactive caching.
+- Revisit WebSocket proactive caching. Subscribe to newHeads and for each event precalculate the syncDuties to cache and serve them quickly. This idea was implemented but hasn't made it into the final version of this code.
 - Dynamic MEV Relay Discovery: Integrate with an external MEV relay registry or Builder API (EIP-4844) to automatically fetch and update relay addresses, replacing the static configuration list for a more professional and maintainable approach.
 
 ### Medium Priority:
 
 - API rate limiting.
 - Metrics & monitoring (Prometheus).
-- Structured error responses.
+
 
 ## Error Handling
 
@@ -256,11 +256,6 @@ make test
 [Gwei](https://www.risein.com/blog/what-is-gwei)
 
 [Analyzing MEV](https://medium.com/@toni_w/practical-guide-into-analyzing-mev-in-the-proof-of-stake-era-e2b024509918)
-
-## Conclusion
-
-Reliable, scalable Ethereum validator API leveraging hexagonal architecture and caching for optimal performance.
-
 
 
 
