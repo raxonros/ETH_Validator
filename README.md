@@ -39,6 +39,13 @@ The solution leverages a **hexagonal architecture**, allowing loose coupling bet
 - **QuickNode Ethereum endpoints**
 - **golang-lru** for caching (LRU cache)
 
+## 📋 Requirements
+
+- **Golang** (>=1.22) — install via [official Go installation guide](https://go.dev/doc/install)  
+- **Docker** — install via [Docker](https://docs.docker.com/get-docker/)  
+- **Docker Compose** — install via [Compose installation](https://docs.docker.com/compose/install/)  
+- **Make** — on macOS: `brew install make`; on Debian/Ubuntu: `sudo apt install make`; on Fedora/RHEL: `sudo dnf install make`
+
 ## Key Functionalities
 
 ### Block Reward Calculation
