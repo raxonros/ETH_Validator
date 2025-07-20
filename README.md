@@ -210,7 +210,7 @@ make test
 
 ### High Priority:
 
-- Expand tests coverage (>90%).
+- Expand tests coverage (>70%).
 - Persistent Redis cache.
 - Revisit WebSocket proactive caching. Subscribe to newHeads and for each event precalculate the syncDuties to cache and serve them quickly. This idea was implemented but hasn't made it into the final version of this code.
 - Dynamic MEV Relay Discovery: Integrate with an external MEV relay registry or Builder API (EIP-4844) to automatically fetch and update relay addresses, replacing the static configuration list for a more professional and maintainable approach.
