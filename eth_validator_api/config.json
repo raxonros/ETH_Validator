@@ -1,0 +1,24 @@
+{
+    "SERVER_ADDRESS": ":8080",
+    "ETH_RPC_HTTP": "https://methodical-billowing-dew.quiknode.pro/d23a8baebb4c5f2c1e0c25e20655e66a48a5873e",
+    "ETH_RPC_WS":   "wss://methodical-billowing-dew.quiknode.pro/d23a8baebb4c5f2c1e0c25e20655e66a48a5873e",
+    "MEV_RELAYS": [
+      "0xA4B9C377Eb5a7cdf8146C1A95359C4Cf0901012e",
+      "0xDef1C0ded9bec7F1a1670819833240f027b25EfF",
+      "0x173eB2A891D214B9232eEa1c4d5F4D049237F843",
+      "0x4200000000000000000000000000000000000006",
+      "0x99c85bb64564d9ef9a99621301f22c9993cb89e3"
+    ],
+    "CACHE_SYNC_MAX_ENTRIES": 1024,
+    "CACHE_SYNC_TTL": "60m",
+
+    "BR_TIMEOUT": "5s",
+    "BR_MAX_RETRIES": 3,
+    "BR_BACKOFF": "100ms",
+
+    "SD_TIMEOUT": "10s",
+    "SD_MAX_RETRIES": 3,
+    "SD_BACKOFF": "100ms"
+    
+  }
+  

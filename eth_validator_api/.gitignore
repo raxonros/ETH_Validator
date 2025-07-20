@@ -1,0 +1,14 @@
+# Binaries
+/bin/
+/eth-validator-api
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Build artifacts
+*.out
+coverage.out
+integration.out
+coverage.html
+integration-coverage.html
