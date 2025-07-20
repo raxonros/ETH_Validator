@@ -40,7 +40,6 @@ func main() {
     }
 
     consClient, err := consensus.NewConsensusClient(
-        cfg.Ethereum.RPCWS,
         cfg.Ethereum.RPCHTTP,
         cfg.Retry.SyncDuties.MaxRetries,
         cfg.Retry.SyncDuties.Backoff,

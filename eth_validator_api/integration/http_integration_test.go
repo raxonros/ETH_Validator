@@ -145,8 +145,7 @@ func TestIntegration_BlockRewardAndSyncDuties(t *testing.T) {
 	brUC := usecase.NewBlockRewardUseCase(execClient)
 
 
-	consClient, err := consensus.NewConsensusClient(
-		mock.URL,       
+	consClient, err := consensus.NewConsensusClient(    
 		mock.URL,       
 		3,              
 		100*time.Millisecond,
