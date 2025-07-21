@@ -41,10 +41,14 @@ type dummyCache struct{}
 func (c *dummyCache) Get(slot uint64) (domain.SyncDuties, bool) { return domain.SyncDuties{}, false }
 func (c *dummyCache) Add(slot uint64, d domain.SyncDuties)      {}
 
+type dummyCacheBR struct{}
+func (c *dummyCacheBR) Get(slot uint64) (domain.BlockReward, bool) { return domain.BlockReward{}, false }
+func (c *dummyCacheBR) Add(slot uint64, d domain.BlockReward) {}
+
 func TestHTTPHandler(t *testing.T) {
 	zap.ReplaceGlobals(zap.NewNop())
 
-	brUC := usecase.NewBlockRewardUseCase(&mockBR{})
+	brUC := usecase.NewBlockRewardUseCase(&mockBR{}, &dummyCacheBR{})
 	sdUC := usecase.NewSyncDutiesUseCase(&mockSD{}, &dummyCache{})
 	h := handler.NewHandler(brUC, sdUC)
 
@@ -96,7 +100,7 @@ func (m *errorMockClient) GetSyncDuties(ctx context.Context, slot uint64) (domai
 func TestGetBlockReward_Errors(t *testing.T) {
 	zap.ReplaceGlobals(zap.NewNop())
 
-	brUC := usecase.NewBlockRewardUseCase(&errorMockClient{})
+	brUC := usecase.NewBlockRewardUseCase(&errorMockClient{}, &dummyCacheBR{})
 	sdUC := usecase.NewSyncDutiesUseCase(&mockSD{}, &dummyCache{}) 
 	h := handler.NewHandler(brUC, sdUC)
 
@@ -150,7 +154,7 @@ func (m *errorSDClient) GetBlockReward(ctx context.Context, slot uint64) (domain
 func TestGetSyncDuties_Errors(t *testing.T) {
 	zap.ReplaceGlobals(zap.NewNop())
 
-	brUC := usecase.NewBlockRewardUseCase(&mockBR{}) 
+	brUC := usecase.NewBlockRewardUseCase(&mockBR{}, &dummyCacheBR{}) 
 	sdUC := usecase.NewSyncDutiesUseCase(&errorSDClient{}, &dummyCache{})
 	h := handler.NewHandler(brUC, sdUC)
 

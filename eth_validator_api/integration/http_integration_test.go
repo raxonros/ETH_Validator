@@ -194,7 +194,12 @@ func TestIntegration_BlockRewardAndSyncDuties(t *testing.T) {
 	if err != nil {
 		t.Fatalf("NewExecutionClient: %v", err)
 	}
-	brUC := usecase.NewBlockRewardUseCase(execClient)
+
+    cache_reward, _ := execution.NewBlockRewardCache(
+        128,
+        60*time.Second, 
+    )
+	brUC := usecase.NewBlockRewardUseCase(execClient, cache_reward)
 
 
 	consClient, err := consensus.NewConsensusClient(    
@@ -308,7 +313,8 @@ func TestIntegration_SyncDuties_ErrorScenarios(t *testing.T) {
             ethHTTP, _ := ethclient.Dial(server.URL)
             rpcHTTP, _ := rpc.DialHTTP(server.URL)
             execClient, _ := execution.NewExecutionClient(rpcHTTP, ethHTTP, []string{}, 1, 10*time.Millisecond)
-            brUC := usecase.NewBlockRewardUseCase(execClient)
+            cache_reward, _ := execution.NewBlockRewardCache(10, time.Minute)
+            brUC := usecase.NewBlockRewardUseCase(execClient, cache_reward)
             consClient, _ := consensus.NewConsensusClient(server.URL, 1, 10*time.Millisecond, 1*time.Second)
             cache, _ := consensus.NewSyncDutiesCache(10, time.Minute)
             sdUC := usecase.NewSyncDutiesUseCase(consClient, cache)
@@ -387,7 +393,8 @@ func TestIntegration_BlockReward_ErrorScenarios(t *testing.T) {
             ethHTTP, _ := ethclient.Dial(server.URL)
             rpcHTTP, _ := rpc.DialHTTP(server.URL)
             execClient, _ := execution.NewExecutionClient(rpcHTTP, ethHTTP, []string{}, 1, 10*time.Millisecond)
-            brUC := usecase.NewBlockRewardUseCase(execClient)
+            cache_reward, _ := execution.NewBlockRewardCache(10, time.Minute)
+            brUC := usecase.NewBlockRewardUseCase(execClient, cache_reward)
 
             r := chi.NewRouter()
             h := handler.NewHandler(brUC, usecase.NewSyncDutiesUseCase(nil, nil))

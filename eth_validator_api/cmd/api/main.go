@@ -49,7 +49,7 @@ func main() {
         zap.L().Fatal("init consensus client", zap.Error(err))
     }
 
-    cache, err := consensus.NewSyncDutiesCache(
+    cache_duties, err := consensus.NewSyncDutiesCache(
         cfg.Cache.SyncDuties.MaxEntries,
         cfg.Cache.SyncDuties.TTL,
     )
@@ -57,7 +57,7 @@ func main() {
         zap.L().Fatal("init sync duties cache", zap.Error(err))
     }
 
-    sdUC := usecase.NewSyncDutiesUseCase(consClient, cache)
+    sdUC := usecase.NewSyncDutiesUseCase(consClient, cache_duties)
 
     ethHTTP, err := ethclient.Dial(cfg.Ethereum.RPCHTTP)
     if err != nil {
@@ -67,6 +67,7 @@ func main() {
     if err != nil {
         zap.L().Fatal("dial rpc", zap.Error(err))
     }
+
     execClient, err := execution.NewExecutionClient(
         rpcHTTP,
         ethHTTP,
@@ -77,7 +78,16 @@ func main() {
     if err != nil {
         zap.L().Fatal("init execution client", zap.Error(err))
     }
-    brUC := usecase.NewBlockRewardUseCase(execClient)
+
+    cache_reward, err := execution.NewBlockRewardCache(
+        cfg.Cache.BlockReward.MaxEntries,
+        cfg.Cache.BlockReward.TTL,
+    )
+    if err != nil {
+        zap.L().Fatal("init sync duties cache", zap.Error(err))
+    }
+
+    brUC := usecase.NewBlockRewardUseCase(execClient, cache_reward)
 
     r := httpPkg.NewRouter(cfg, brUC, sdUC)
 

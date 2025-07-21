@@ -11,6 +11,9 @@
     ],
     "CACHE_SYNC_MAX_ENTRIES": 1024,
     "CACHE_SYNC_TTL": "60m",
+    
+    "CACHE_BLOCK_REWARD_MAX_ENTRIES": 1024,
+    "CACHE_BLOCK_REWARD_TTL": "60m",
 
     "BR_TIMEOUT": "5s",
     "BR_MAX_RETRIES": 3,

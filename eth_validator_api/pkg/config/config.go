@@ -20,6 +20,10 @@ type Config struct {
             MaxEntries int           `mapstructure:"CACHE_SYNC_MAX_ENTRIES"`
             TTL        time.Duration `mapstructure:"CACHE_SYNC_TTL"`
         }
+        BlockReward struct {
+            MaxEntries int           `mapstructure:"CACHE_BLOCK_REWARD_MAX_ENTRIES"`
+            TTL        time.Duration `mapstructure:"CACHE_BLOCK_REWARD_TTL"`
+        }
     }
 	Retry struct {
         BlockReward struct {
@@ -46,6 +50,8 @@ func Load() (*Config, error) {
     v.SetDefault("MEV_RELAYS", []string{})
     v.SetDefault("CACHE_SYNC_MAX_ENTRIES", 1024)
     v.SetDefault("CACHE_SYNC_TTL",  "60m")
+    v.SetDefault("CACHE_BLOCK_REWARD_MAX_ENTRIES", 1024)
+    v.SetDefault("CACHE_BLOCK_REWARD_TTL",  "60m")
 	v.SetDefault("BR_TIMEOUT",   "5s")
 	v.SetDefault("BR_MAX_RETRIES", 3)
 	v.SetDefault("BR_BACKOFF",    "100ms")
@@ -67,6 +73,9 @@ func Load() (*Config, error) {
 
     cfg.Cache.SyncDuties.MaxEntries = v.GetInt("CACHE_SYNC_MAX_ENTRIES")
     cfg.Cache.SyncDuties.TTL = v.GetDuration("CACHE_SYNC_TTL")
+    
+    cfg.Cache.BlockReward.MaxEntries = v.GetInt("CACHE_BLOCK_REWARD_MAX_ENTRIES")
+    cfg.Cache.BlockReward.TTL = v.GetDuration("CACHE_BLOCK_REWARD_TTL")
 
     cfg.Retry.BlockReward.Timeout    = v.GetDuration("BR_TIMEOUT")
     cfg.Retry.BlockReward.MaxRetries = v.GetInt("BR_MAX_RETRIES")
