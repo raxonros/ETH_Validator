@@ -4,6 +4,8 @@ import (
     "context"
     "math/big"
     "time"
+    "regexp"
+    
 
     "go.uber.org/zap"
     "github.com/ethereum/go-ethereum/common"
@@ -18,6 +20,9 @@ import (
 	"eth_validator_api/internal/retry"
     
 )
+
+var mevRegex = regexp.MustCompile(`(?i)(flashbots|titanbuilder|eden|mev-boost)`)
+
 
 type ExecutionClient struct {
 	rpcClient *rpc.Client
@@ -79,6 +84,9 @@ func (ec *ExecutionClient) GetBlockReward(ctx context.Context, slot uint64) (dom
     }
 
     status := "vanilla"
+    if mevRegex.Match(header.Extra) {
+        status = "mev"
+    }
     if _, ok := ec.mevRelays[header.Coinbase]; ok {
         status = "mev"
     }
